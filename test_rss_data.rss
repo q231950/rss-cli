@@ -1,0 +1,32 @@
+"<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<channel>
+<title>tagesschau.de - Die Nachrichten der ARD</title>
+<link>http://www.tagesschau.de</link>
+<description>tagesschau.de</description>
+<language>de</language>
+<copyright>ARD-aktuell / tagesschau.de</copyright>
+<lastBuildDate>Sat, 12 Dec 2015 22:59:06 +0100</lastBuildDate>
+<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+<ttl>10</ttl>
+<item>
+<title>Hendricks in den tagesthemen: "Wir müssen noch besser werden"</title>
+<link>http://www.tagesschau.de/ausland/hendricks-klimaeinigung-101.html</link>
+<pubDate>Sat, 12 Dec 2015 22:21:56 +0100</pubDate>
+<item>
+<title>Wiederwahl als SPD-Chef: "Gabriel ist beschädigt"</title>
+<link>http://www.tagesschau.de/inland/einschaetzung-hassel-spd-parteitag-103.html</link>
+<pubDate>Fri, 11 Dec 2015 20:32:08 +0100</pubDate>
+<content:encoded>
+&lt;p&gt;
+&lt;a href="http://www.tagesschau.de/inland/einschaetzung-hassel-spd-parteitag-103.html"&gt;&lt;img src="http://www.tagesschau.de/multimedia/bilder/sendungsbild-131131~_v-mittel16x9.jpg" alt="Sendungsbild"/&gt;&lt;/a&gt;
+&lt;br/&gt;&lt;br/&gt;
+Aus dem beabsichtigten Dämpfer für Gabriel ist eine schallenende Ohrfeige geworden - zum Erschrecken vieler Genossen, berichtet Tina Hassel, Leiterin des ARD-Hauptstadtstudios. Damit geht Gabriel beschädigt in den Bundestagswahlkampf - sofern er denn noch als Kanzlerkandidat antritt. [&lt;a href="http://www.tagesschau.de/inland/einschaetzung-hassel-spd-parteitag-103.html"&gt;video&lt;/a&gt;]
+&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.tagesschau.de/inland/einschaetzung-hassel-spd-parteitag-103.html"&gt;Meldung bei www.tagesschau.de lesen&lt;/a&gt;&lt;/p&gt;
+
+</content:encoded>
+<description>Aus dem beabsichtigten Dämpfer für Gabriel ist eine schallenende Ohrfeige geworden - zum Erschrecken vieler Genossen, berichtet Tina Hassel, Leiterin des ARD-Hauptstadtstudios. Damit geht Gabriel beschädigt in den Bundestagswahlkampf - sofern er denn noch als Kanzlerkandidat antritt.</description>
+<guid>http://www.tagesschau.de/inland/einschaetzung-hassel-spd-parteitag-103.html</guid>
+</item>
+</channel>
+</rss>"

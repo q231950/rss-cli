@@ -1,11 +1,14 @@
 require "rss-aggregator"
 require "test/unit"
+require "flexmock/test_unit"
 
 class TestRSSAggregator < Test::Unit::TestCase
   
   def setup
     args = []
     @aggregator = RSSAggregator.new(args)
+    partialAggregator = flexmock(@aggregator)
+    partialAggregator.should_receive('open_and_read').and_return(result)
   end
   
   def test_number_of_feeds
@@ -24,6 +27,8 @@ class TestRSSAggregator < Test::Unit::TestCase
   def test_removes_duplicates_when_initializing
     args = ["http://www.tagesschau.de/xml/rss2", "http://www.tagesschau.de/xml/rss2"]
     @aggregator = RSSAggregator.new(args)
+    partialAggregator = flexmock(@aggregator)
+    partialAggregator.should_receive('open_and_read').and_return(result)
     assert_equal(1, @aggregator.feed_count)
   end
   
@@ -33,8 +38,7 @@ class TestRSSAggregator < Test::Unit::TestCase
     assert_equal(1, @aggregator.feed_count)
   end
   
-  def test_number_of_something
-    assert_equal(3, 2+1)
+  def result
+    open('test_rss_data.rss') { |f| f.read }
   end
-  
 end

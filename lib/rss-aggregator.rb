@@ -13,7 +13,12 @@ class RSSAggregator
 
   protected
   def read_feeds
-    @feed_urls.each { |url| @feeds.push(SimpleRSS.new(open(url).read)) }
+    @feed_urls.each { |url| @feeds.push(SimpleRSS.new( open_and_read(url))) }
+  end
+  
+  private
+  def open_and_read(url)
+    open(url).read
   end
 
   public
