@@ -39,6 +39,6 @@ class TestRSSAggregator < Test::Unit::TestCase
   end
   
   def result
-    open('test_rss_data.rss') { |f| f.read }
+    open('tests/resources/test_rss_data.rss') { |f| f.read }
   end
 end
