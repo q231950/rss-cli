@@ -4,6 +4,7 @@ class Feed
   def initialize(title='', url)
     @title = title    
     @url = url
+    @articles = []
   end
 
   def title
@@ -14,8 +15,12 @@ class Feed
     @url
   end
 
+  def add_article(article)
+    @articles << article
+  end
+
   def articles
-    []
+    @articles
   end
 
 end
