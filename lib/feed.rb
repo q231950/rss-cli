@@ -16,6 +16,9 @@ class Feed
   end
 
   def add_article(article)
+    if @articles.any? { |a| a == article }
+      return
+    end
     @articles << article
   end
 
