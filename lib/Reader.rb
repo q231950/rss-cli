@@ -4,23 +4,34 @@ require_relative 'rss-aggregator'
 
 class Reader
 
-  cli = HighLine.new
-  #answer = cli.say "Hi there, "
-  #puts "You have answered: #{answer}"
-
-  # Default answer
-  #cli.ask("Company?  ") { |q| q.default = "none" }
-
-  #cli.say("This should be <%= color('bold', BOLD) %>!")
-
-  cli.say("Available feeds:")
-  cli.choose do |menu|
-    menu.prompt = "Please choose your favourite feed."
-    menu.choices(:heise) { 
-      cli.say("Ok let's go checkout Heise") 
-      aggregator = RSSAggregator.new(["http://www.heise.de/newsticker/heise-atom.xml"])
-      aggregator.list_all
-    }
+  def initialize
+    @cli = HighLine.new
+    @cli.say("Available feeds:")
+    @cli.choose do |menu|
+      menu.prompt = "Please choose your favourite feed."
+      menu.choices(:heise) {
+        handle_name_url("Heise", "http://www.heise.de/newsticker/heise-atom.xml")
+      }
+    end
   end
 
+  protected
+  def handle_name_url(name, url )
+    @cli.say("Ok let's go checkout #{name}.") 
+    aggregator = RSSAggregator.new([url])
+    show_choices_for_items(aggregator.feed_for_url(url).items)
+  end
+
+  def show_choices_for_items(items) 
+    @cli.choose do |menu|
+      items.each do |item|
+        title = item.title.to_s
+        menu.choice(title) {
+          puts item.link
+        }
+      end
+    end
+  end
 end
+
+Reader.new

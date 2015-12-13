@@ -22,6 +22,12 @@ class RSSAggregator
   end
 
   public
+
+  def feed_for_url(url) 
+    index = @feed_urls.index(url)
+    @feeds[index]
+  end
+
   def refresh
     @feeds = []
     read_feeds
