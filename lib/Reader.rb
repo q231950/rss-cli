@@ -6,18 +6,22 @@ class Reader
 
   def initialize
     @cli = HighLine.new
+    @cli.say("This should be <%= color('bold', BOLD) %>!")
     @cli.say("Available feeds:")
     @cli.choose do |menu|
       menu.prompt = "Please choose your favourite feed."
-      menu.choices(:heise) {
+      menu.choices(:Heise) {
         handle_name_url("Heise", "http://www.heise.de/newsticker/heise-atom.xml")
+      }
+      menu.choice(:Tageschau) {
+        handle_name_url("Tagesschau", "http://www.tagesschau.de/xml/rss2")
       }
     end
   end
 
-  protected
+  private
   def handle_name_url(name, url )
-    @cli.say("Ok let's go checkout #{name}.") 
+    @cli.say("Ok, checking out #{ name }") 
     aggregator = RSSAggregator.new([url])
     show_choices_for_items(aggregator.feed_for_url(url).items)
   end
@@ -28,6 +32,14 @@ class Reader
         title = item.title.to_s
         menu.choice(title) {
           puts item.link
+          @cli.ask("Back to results?")
+          @cli.choose do |sub_menu|
+            sub_menu.choice(:yes) {
+              show_choices_for_items(items)
+            }
+            sub_menu.choice(:no) {
+            }
+          end
         }
       end
     end
