@@ -32,9 +32,11 @@ class Reader
         title = item.title.to_s
         menu.choice(title) {
           puts item.link
-          @cli.ask("Back to results?")
+          #@cli.ask("Back to results?")
           @cli.choose do |sub_menu|
+            sub_menu.prompt = "Back to results?"
             sub_menu.choice(:yes) {
+              puts items.size
               show_choices_for_items(items)
             }
             sub_menu.choice(:no) {
