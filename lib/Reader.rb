@@ -1,11 +1,35 @@
-
 require 'highline'
 require_relative 'rss-aggregator'
 
 class Reader
 
   def initialize
+    parse_argv
     @cli = HighLine.new
+
+    unless @help.nil?
+      show_help
+    end
+    
+    unless @read.nil?
+      read
+    end
+  end
+
+  private
+  def parse_argv
+    ARGV.each do |k|
+      if k == 'help' || k == 'read'
+        instance_variable_set("@#{k}", true)
+      end 
+    end
+  end 
+
+  def show_help
+    @cli.say("<%= color('reader', BOLD) %> supports a single command:\n• reader <%= color('read', BOLD) %>")
+  end
+
+  def read
     @cli.say("This should be <%= color('bold', BOLD) %>!")
     @cli.say("Available feeds:")
     @cli.choose do |menu|
@@ -19,7 +43,6 @@ class Reader
     end
   end
 
-  private
   def handle_name_url(name, url )
     @cli.say("Ok, checking out #{ name }") 
     aggregator = RSSAggregator.new([url])
