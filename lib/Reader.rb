@@ -3,34 +3,23 @@ require_relative 'rss-aggregator'
 
 class Reader
 
-  def initialize
-    parse_argv
+  def initialize args
     @cli = HighLine.new
+    parse_argv(args)
 
     unless @help.nil?
       show_help
     end
-    
+
     unless @read.nil?
+      puts 'will read now'
       read
     end
   end
 
-  private
-  def parse_argv
-    ARGV.each do |k|
-      if k == 'help' || k == 'read'
-        instance_variable_set("@#{k}", true)
-      end 
-    end
-  end 
-
-  def show_help
-    @cli.say("<%= color('reader', BOLD) %> supports a single command:\n• reader <%= color('read', BOLD) %>")
-  end
-
+  public
   def read
-    @cli.say("This should be <%= color('bold', BOLD) %>!")
+    puts @cli
     @cli.say("Available feeds:")
     @cli.choose do |menu|
       menu.prompt = "Please choose your favourite feed."
@@ -41,6 +30,25 @@ class Reader
         handle_name_url("Tagesschau", "http://www.tagesschau.de/xml/rss2")
       }
     end
+  end
+
+  private
+  def parse_argv(args)
+    unless args.nil? 
+      puts args
+      args.each do |k, v|
+        if k == "read"
+          puts k.inspect
+          instance_variable_set("@#{k}", true) 
+        elsif k == :cli
+          @cli = v
+        end
+      end
+    end
+  end
+
+  def show_help
+    @cli.say("<%= color('reader', BOLD) %> supports a single command:\n• reader <%= color('read', BOLD) %>")
   end
 
   def handle_name_url(name, url )
@@ -71,4 +79,6 @@ class Reader
   end
 end
 
-Reader.new
+kv = ARGV
+Reader.new(kv)
+
