@@ -27,14 +27,14 @@ class Reader
   def read
     @cli.say("Your RSS feeds:")
     @cli.choose do |menu|
-      menu.prompt = "Please choose a feed or quit by choosing " + (@configuration.feeds.length + 1).to_s + "."
+      menu.prompt = "Please choose a feed or quit by either choosing " + (@configuration.feeds.length + 1).to_s + " or entering the letter 'q'."
       @configuration.feeds.each do |feed|
         nameSymbol = feed['name'].to_sym
         menu.choices(nameSymbol) {
           handle_name_url(feed['name'], feed['url'])
         }
       end
-      menu.choice(:Cancel) {
+      menu.choice(:quit, :q) {
       }
     end
   end
