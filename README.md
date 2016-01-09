@@ -1,5 +1,5 @@
 # rss-cli
-A command line interface to open RSS feed items in a browser
+Yet another command line interface for RSS. This one will open RSS feed items in Safari on your Mac.
 
 # Usage
 In order to start reading, you should run the following on a OS X machine
