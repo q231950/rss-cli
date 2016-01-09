@@ -68,9 +68,8 @@ class Reader
       items.each do |item|
         title = item.title.to_s
         menu.choice(title) {
-          ok = system("open -a safari " + item.link)
-          puts ok
-          #@cli.ask("Back to results?")
+          # open safari
+          system("open -a safari " + item.link)
           @cli.choose do |sub_menu|
             sub_menu.prompt = "Back to results?"
             sub_menu.choice(:yes) {
