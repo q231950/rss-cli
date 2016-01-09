@@ -23,11 +23,7 @@ class Configuration
   end
 
   def create_sample_config(path)
-    puts("Creating sample file")
     FileUtils.cp './resources/sample_config.yml', path
-    #out_file = File.new(path, "w")
-    #out_file.puts("#This is a sample configuration for a cli RSS reader.\n")
-    #out_file.close
   end
 
 end
