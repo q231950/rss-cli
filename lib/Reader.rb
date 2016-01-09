@@ -6,8 +6,9 @@ require 'yaml'
 class Reader
 
   def initialize args
-    @configuration = Configuration.new
     @cli = HighLine.new
+    @cli.say("\n\n<%= color(' +++++++++++++++++++++++', GREEN)  %>\n<%= color(' + ', GREEN)  %><%= color('Welcome to rss-cli.', BOLD) %><%= color(' +', GREEN)  %>\n<%= color(' +++++++++++++++++++++++', GREEN) %>\n\n")
+    @configuration = Configuration.new
     @aggregator = RSSAggregator.new([])
     parse_argv(args)
 
@@ -16,19 +17,20 @@ class Reader
     end
 
     unless @read.nil?
-      puts 'will read now'
       read
     end
+
+    puts "Bye bye."
   end
 
   public
   def read
-    @cli.say("Available feeds:")
+    @cli.say("Your RSS feeds:")
     @cli.choose do |menu|
-      menu.prompt = "Please choose your favourite feed."
+      menu.prompt = "Please choose a feed or quit by choosing " + (@configuration.feeds.length + 1).to_s + "."
       @configuration.feeds.each do |feed|
-          nameSymbol = feed['name'].to_sym
-          menu.choices(nameSymbol) {
+        nameSymbol = feed['name'].to_sym
+        menu.choices(nameSymbol) {
           handle_name_url(feed['name'], feed['url'])
         }
       end
@@ -40,10 +42,8 @@ class Reader
   private
   def parse_argv(args)
     unless args.nil? 
-      puts args
       args.each do |k, v|
         if k == "read"
-          puts k.inspect
           instance_variable_set("@#{k}", true) 
         elsif k == :cli
           @cli = v
@@ -58,7 +58,6 @@ class Reader
 
   def handle_name_url(name, url )
     @cli.say("Ok, checking out #{ name }") 
-    #@configuration.feeds.map {|feed| feed['url']}
     @aggregator.add_url(url)
     show_choices_for_items(@aggregator.feed_for_url(url).items)
   end
@@ -70,14 +69,7 @@ class Reader
         menu.choice(title) {
           # open safari
           system("open -a safari " + item.link)
-#          @cli.choose do |sub_menu|
-#            sub_menu.prompt = "Back to results?"
-#            sub_menu.choice(:yes) {
-              show_choices_for_items(items)
-#            }
-#            sub_menu.choice(:no) {
-#            }
-#          end
+          show_choices_for_items(items)
         }
       end
       menu.choice(:back) {
