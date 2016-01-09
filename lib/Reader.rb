@@ -23,14 +23,12 @@ class Reader
 
   public
   def read
-    puts @cli
     @cli.say("Available feeds:")
     @cli.choose do |menu|
       menu.prompt = "Please choose your favourite feed."
       @configuration.feeds.each do |feed|
-        puts feed['url']
-        nameSymbol = feed['name'].to_sym
-        menu.choices(nameSymbol) {
+          nameSymbol = feed['name'].to_sym
+          menu.choices(nameSymbol) {
           handle_name_url(feed['name'], feed['url'])
         }
       end
@@ -38,7 +36,6 @@ class Reader
       }
     end
   end
-
 
   private
   def parse_argv(args)
@@ -73,15 +70,14 @@ class Reader
         menu.choice(title) {
           # open safari
           system("open -a safari " + item.link)
-          @cli.choose do |sub_menu|
-            sub_menu.prompt = "Back to results?"
-            sub_menu.choice(:yes) {
-              puts items.size
+#          @cli.choose do |sub_menu|
+#            sub_menu.prompt = "Back to results?"
+#            sub_menu.choice(:yes) {
               show_choices_for_items(items)
-            }
-            sub_menu.choice(:no) {
-            }
-          end
+#            }
+#            sub_menu.choice(:no) {
+#            }
+#          end
         }
       end
       menu.choice(:back) {
