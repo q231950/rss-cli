@@ -27,14 +27,14 @@ class Reader
   def read
     @cli.say("Your RSS feeds:")
     @cli.choose do |menu|
-      menu.prompt = "Please choose a feed or quit by either choosing " + (@configuration.feeds.length + 1).to_s + " or entering the letter 'q'."
+      menu.prompt = "Choose a feed or quit by either choosing '" + (@configuration.feeds.length + 1).to_s + "' or entering the letter 'q'."
       @configuration.feeds.each do |feed|
         nameSymbol = feed['name'].to_sym
         menu.choices(nameSymbol) {
           handle_name_url(feed['name'], feed['url'])
         }
       end
-      menu.choice(:quit, :q) {
+      menu.choice(:'quit (q)', :q) {
       }
     end
   end
@@ -57,7 +57,7 @@ class Reader
   end
 
   def handle_name_url(name, url )
-    @cli.say("Ok, checking out #{ name }") 
+    @cli.say("Ok, checking out #{ name }...") 
     @aggregator.add_url(url)
     show_choices_for_items(@aggregator.feed_for_url(url).items)
   end
@@ -72,7 +72,7 @@ class Reader
           show_choices_for_items(items)
         }
       end
-      menu.choice(:back) {
+      menu.choice(:'back (b)', :'(b)') {
         read
       }
     end
