@@ -29,6 +29,12 @@ class Reader
       menu.choice(:Tageschau) {
         handle_name_url("Tagesschau", "http://www.tagesschau.de/xml/rss2")
       }
+      menu.choice(:BitBucket) {
+        handle_name_url("BitBucket", "https://bitbucket.org/q231950/rss/feed?token=ad4563c793715091572c309bb8b4ca03")
+      }
+      menu.choice(:ROOPC) {
+        handle_name_url("ROOPC", "http://roopc.net/rss.xml")
+      }
     end
   end
 
@@ -62,7 +68,8 @@ class Reader
       items.each do |item|
         title = item.title.to_s
         menu.choice(title) {
-          puts item.link
+          ok = system("open -a safari " + item.link)
+          puts ok
           #@cli.ask("Back to results?")
           @cli.choose do |sub_menu|
             sub_menu.prompt = "Back to results?"
