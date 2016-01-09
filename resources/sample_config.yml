@@ -5,8 +5,6 @@ feeds:
     url : "http://www.heise.de/newsticker/heise-atom.xml"
   - name : "Tagesschau"
     url : "http://www.tagesschau.de/xml/rss2"
-  - name : "BitBucket"
-    url : "https://bitbucket.org/q231950/rss/feed?token=ad4563c793715091572c309bb8b4ca03"
   - name : "ROOPC"
     url : "http://roopc.net/rss.xml"
 
