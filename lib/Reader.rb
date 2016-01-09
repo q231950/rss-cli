@@ -1,11 +1,14 @@
 require 'highline'
 require_relative 'rss-aggregator'
+require_relative 'configuration'
 require 'yaml'
 
 class Reader
 
   def initialize args
+    @configuration = Configuration.new
     @cli = HighLine.new
+    @aggregator = RSSAggregator.new([])
     parse_argv(args)
 
     unless @help.nil?
@@ -24,79 +27,70 @@ class Reader
     @cli.say("Available feeds:")
     @cli.choose do |menu|
       menu.prompt = "Please choose your favourite feed."
-      # choose from config or create config file
-      #config = YAML.load_file('~/.rss_reader_config.yml')
-      create_config_unless_exists
-
-      menu.choices(:Heise) {
-        handle_name_url("Heise", "http://www.heise.de/newsticker/heise-atom.xml")
-      }
-      menu.choice(:Tageschau) {
-        handle_name_url("Tagesschau", "http://www.tagesschau.de/xml/rss2")
-      }
-      menu.choice(:BitBucket) {
-        handle_name_url("BitBucket", "https://bitbucket.org/q231950/rss/feed?token=ad4563c793715091572c309bb8b4ca03")
-      }
-      menu.choice(:ROOPC) {
-        handle_name_url("ROOPC", "http://roopc.net/rss.xml")
+      @configuration.feeds.each do |feed|
+        puts feed['url']
+        nameSymbol = feed['name'].to_sym
+        menu.choices(nameSymbol) {
+          handle_name_url(feed['name'], feed['url'])
+        }
+      end
+      menu.choice(:Cancel) {
       }
     end
   end
 
-  def create_config_unless_exists
-    path = '~/.rss_reader_config.yml'
-    unless File.exists?(path)
-      puts "Could not find config file.\nA config file has been created for you and can be found here:\n\t" + path + "\n"
+
+  private
+  def parse_argv(args)
+    unless args.nil? 
+      puts args
+      args.each do |k, v|
+        if k == "read"
+          puts k.inspect
+          instance_variable_set("@#{k}", true) 
+        elsif k == :cli
+          @cli = v
+        end
+      end
     end
   end
 
-    private
-    def parse_argv(args)
-      unless args.nil? 
-        puts args
-        args.each do |k, v|
-          if k == "read"
-            puts k.inspect
-            instance_variable_set("@#{k}", true) 
-          elsif k == :cli
-            @cli = v
+  def show_help
+    @cli.say("<%= color('reader', BOLD) %> supports a single command:\n• reader <%= color('read', BOLD) %>")
+  end
+
+  def handle_name_url(name, url )
+    @cli.say("Ok, checking out #{ name }") 
+    #@configuration.feeds.map {|feed| feed['url']}
+    @aggregator.add_url(url)
+    show_choices_for_items(@aggregator.feed_for_url(url).items)
+  end
+
+  def show_choices_for_items(items) 
+    @cli.choose do |menu|
+      items.each do |item|
+        title = item.title.to_s
+        menu.choice(title) {
+          # open safari
+          system("open -a safari " + item.link)
+          @cli.choose do |sub_menu|
+            sub_menu.prompt = "Back to results?"
+            sub_menu.choice(:yes) {
+              puts items.size
+              show_choices_for_items(items)
+            }
+            sub_menu.choice(:no) {
+            }
           end
-        end
+        }
       end
-    end
-
-    def show_help
-      @cli.say("<%= color('reader', BOLD) %> supports a single command:\n• reader <%= color('read', BOLD) %>")
-    end
-
-    def handle_name_url(name, url )
-      @cli.say("Ok, checking out #{ name }") 
-      aggregator = RSSAggregator.new([url])
-      show_choices_for_items(aggregator.feed_for_url(url).items)
-    end
-
-    def show_choices_for_items(items) 
-      @cli.choose do |menu|
-        items.each do |item|
-          title = item.title.to_s
-          menu.choice(title) {
-            # open safari
-            system("open -a safari " + item.link)
-            @cli.choose do |sub_menu|
-              sub_menu.prompt = "Back to results?"
-              sub_menu.choice(:yes) {
-                puts items.size
-                show_choices_for_items(items)
-              }
-              sub_menu.choice(:no) {
-              }
-            end
-          }
-        end
-      end
+      menu.choice(:back) {
+        read
+      }
     end
   end
+end
 
-  kv = ARGV
-  Reader.new(kv)
+kv = ARGV
+Reader.new(kv)
 

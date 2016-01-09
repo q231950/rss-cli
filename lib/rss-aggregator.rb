@@ -7,6 +7,7 @@ require 'open-uri'
 class RSSAggregator
   def initialize(urls)
     @feed_urls = urls.uniq
+    puts @feed_urls
     @feeds = []
     read_feeds
   end
@@ -22,7 +23,6 @@ class RSSAggregator
   end
 
   public
-
   def feed_for_url(url) 
     index = @feed_urls.index(url)
     @feeds[index]
