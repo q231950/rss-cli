@@ -8,7 +8,7 @@ class Reader
   def initialize args
     setup_properties
     write_welcome_message
-    parse_argv(args)
+    parse_argv_if_available(args)
 
     unless @help.nil?
       show_help
@@ -49,16 +49,20 @@ class Reader
     @cli.say(file.read)
   end
 
-  def parse_argv(args)
+  def parse_argv_if_available(args)
     unless args.nil? 
+      parse_args(args)
+    end
+  end
+
+  def parse_args(args)
       args.each do |k, v|
-        if k == "read"
-          instance_variable_set("@#{k}", true) 
+        if k == "read" || k == "help"
+          instance_variable_set("@#{k}", true)
         elsif k == :cli
           @cli = v
         end
       end
-    end
   end
 
   def show_help
