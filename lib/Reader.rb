@@ -7,7 +7,7 @@ class Reader
 
   def initialize args
     @cli = HighLine.new
-    @cli.say("\n\n<%= color(' +++++++++++++++++++++++', GREEN)  %>\n<%= color(' + ', GREEN)  %><%= color('Welcome to rss-cli.', BOLD) %><%= color(' +', GREEN)  %>\n<%= color(' +++++++++++++++++++++++', GREEN) %>\n\n")
+    write_welcome_message
     @configuration = Configuration.new
     @aggregator = RSSAggregator.new([])
     parse_argv(args)
@@ -40,6 +40,11 @@ class Reader
   end
 
   private
+  def write_welcome_message
+    file = File.open('resources/welcome_message.txt') 
+    @cli.say(file.read)
+  end
+
   def parse_argv(args)
     unless args.nil? 
       args.each do |k, v|

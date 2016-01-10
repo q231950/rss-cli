@@ -1,0 +1,7 @@
+
+
+<%= color(' +++++++++++++++++++++++', GREEN)  %>
+<%= color(' + ', GREEN)  %><%= color('Welcome to rss-cli.', BOLD) %><%= color(' +', GREEN)  %>
+<%= color(' +++++++++++++++++++++++', GREEN) %>
+
+
