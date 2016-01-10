@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'highline'
 require_relative 'rss-aggregator'
 require_relative 'configuration'
@@ -18,6 +20,9 @@ class Reader
       read
     end
 
+    if @help.nil? && @read.nil?
+      show_basic_usage_hint 
+    end
     puts "Bye bye."
   end
 
@@ -38,6 +43,11 @@ class Reader
   end
 
   private
+  def show_basic_usage_hint
+    file = File.open("resources/basic_usage_hint.txt")
+    @cli.say(file.read)
+  end
+
   def setup_properties
     @cli = HighLine.new
     @configuration = Configuration.new

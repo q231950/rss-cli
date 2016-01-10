@@ -1,0 +1,1 @@
+Missing command. For help enter <%= color('./bin/rss-cli help', BOLD) %>
