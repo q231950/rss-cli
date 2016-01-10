@@ -1,4 +1,4 @@
-require 'reader'
+require 'rss-cli'
 require 'rspec'
 require 'flexmock'
 
@@ -13,7 +13,7 @@ RSpec.describe Reader, "#Feed Selection:" do
     it "shows the selection of feeds" do
       reader = Reader.new :cli => cliMock
       reader.read
-      cliMock.should have_received(:say).with("Available feeds:")
+      cliMock.should have_received(:say).with("Your RSS feeds:")
       cliMock.should have_received(:choose)
     end
   end
