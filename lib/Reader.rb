@@ -80,6 +80,8 @@ class Reader
       menu.choice(:'back (b)', :'(b)') {
         read
       }
+      menu.choice(:'quit (q)', :q) {
+      }
     end
   end
 end
