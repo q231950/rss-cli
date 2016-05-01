@@ -31,14 +31,14 @@ class Reader
   def read
     @cli.say("Your RSS feeds:")
     @cli.choose do |menu|
-      menu.prompt = "Choose a feed or quit by either choosing '" + (@configuration.feeds.length + 1).to_s + "' or entering the letter 'q'."
+      menu.prompt = "Choose a feed or quit by entering the letter 'q' or 'quit'."
       @configuration.feeds.each do |feed|
         nameSymbol = feed['name'].to_sym
         menu.choices(nameSymbol) {
           handle_name_url(feed['name'], feed['url'])
         }
       end
-      menu.choice(:'quit (q)', :q) {
+      menu.hidden(:quit, :q) {
       }
     end
   end
@@ -67,9 +67,9 @@ class Reader
     end
   end
 
-# Looks for "read" and "help" as arguments
-# * sets @help to true if help was found
-# * sets @read to true if true was found
+  # Looks for "read" and "help" as arguments
+  # * sets @help to true if help was found
+  # * sets @read to true if true was found
   def parse_args(args)
       args.each do |k, v|
         if k == "read" || k == "help"
