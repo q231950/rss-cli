@@ -7,6 +7,9 @@ require 'yaml'
 
 class Reader
 
+  # Creates a new Reader
+  # * pass `read` to start reading
+  # * pass `help` to get help
   def initialize args
     setup_properties
     write_welcome_message
@@ -30,6 +33,12 @@ class Reader
   public
   def read
     @cli.say("Your RSS feeds:")
+    showFeedSelection
+  end
+
+  private
+
+  def showFeedSelection
     @cli.choose do |menu|
       menu.prompt = "Choose a feed or quit by entering the letter 'q' or 'quit'."
       @configuration.feeds.each do |feed|
@@ -42,8 +51,6 @@ class Reader
       }
     end
   end
-
-  private
 
   def show_basic_usage_hint
     file = File.open("resources/basic_usage_hint.txt")

@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>RSSAggregator</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>class</span>
+          RSSAggregator
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../files/lib/rss-aggregator_rb.html">lib/rss-aggregator.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Superclass:
+          <strong>Object</strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'></div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>Public Class</h3>
+            <ol>
+              <li><a target="docwin" href="#method-c-new">new</a></li>
+            </ol>
+            <h3>Public Instance</h3>
+            <ol>
+              <li><a target="docwin" href="#method-i-add_url">add_url</a></li>
+              <li><a target="docwin" href="#method-i-channel_counts">channel_counts</a></li>
+              <li><a target="docwin" href="#method-i-feed_count">feed_count</a></li>
+              <li><a target="docwin" href="#method-i-feed_for_url">feed_for_url</a></li>
+              <li><a target="docwin" href="#method-i-list_all">list_all</a></li>
+              <li><a target="docwin" href="#method-i-list_articles">list_articles</a></li>
+              <li><a target="docwin" href="#method-i-refresh">refresh</a></li>
+            </ol>
+            <h3>Protected Instance</h3>
+            <ol>
+              <li><a target="docwin" href="#method-i-read_feeds">read_feeds</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+          </div>
+          <div id='section'>
+            <div id='methods'>
+              <h2>Public Class methods</h2>
+              <div class='method public-class' id='method-method-c-new'>
+                <a name='method-c-new'></a>
+                <div class='synopsis'>
+                  <span class='name'>new</span>
+                  <span class='arguments'>(urls)</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-new-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-new-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 8</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">urls</span>)&#x000A;  <span class="ruby-ivar">@feed_urls</span> = <span class="ruby-identifier">urls</span>.<span class="ruby-identifier">uniq</span>&#x000A;  <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@feed_urls</span>&#x000A;  <span class="ruby-ivar">@feeds</span> = []&#x000A;  <span class="ruby-identifier">read_feeds</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <h2>Public Instance methods</h2>
+              <div class='method public-instance' id='method-method-i-add_url'>
+                <a name='method-i-add_url'></a>
+                <div class='synopsis'>
+                  <span class='name'>add_url</span>
+                  <span class='arguments'>(url)</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-add_url-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-add_url-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 36</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_url</span>(<span class="ruby-identifier">url</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@feed_urls</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">url</span> }&#x000A;      <span class="ruby-keyword">return</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@feed_urls</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">url</span>)&#x000A;  <span class="ruby-identifier">refresh</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-channel_counts'>
+                <a name='method-i-channel_counts'></a>
+                <div class='synopsis'>
+                  <span class='name'>channel_counts</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-channel_counts-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-channel_counts-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 49</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">channel_counts</span>&#x000A;  <span class="ruby-ivar">@feeds</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">feed</span>, <span class="ruby-identifier">index</span> <span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">channel</span> = <span class="ruby-node">&quot;Channel(#{index.to_s}): #{feed.channel.title}&quot;</span>&#x000A;    <span class="ruby-identifier">articles</span> = <span class="ruby-node">&quot;Articles: #{feed.items.size.to_s}&quot;</span>&#x000A;    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">channel</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;, &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">articles</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-feed_count'>
+                <a name='method-i-feed_count'></a>
+                <div class='synopsis'>
+                  <span class='name'>feed_count</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-feed_count-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-feed_count-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 45</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">feed_count</span>&#x000A;  <span class="ruby-ivar">@feeds</span>.<span class="ruby-identifier">size</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-feed_for_url'>
+                <a name='method-i-feed_for_url'></a>
+                <div class='synopsis'>
+                  <span class='name'>feed_for_url</span>
+                  <span class='arguments'>(url)</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-feed_for_url-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-feed_for_url-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 26</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">feed_for_url</span>(<span class="ruby-identifier">url</span>)&#x000A;  <span class="ruby-identifier">index</span> = <span class="ruby-ivar">@feed_urls</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">url</span>)&#x000A;  <span class="ruby-ivar">@feeds</span>[<span class="ruby-identifier">index</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-list_all'>
+                <a name='method-i-list_all'></a>
+                <div class='synopsis'>
+                  <span class='name'>list_all</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-list_all-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-list_all-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 62</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">list_all</span>&#x000A;  <span class="ruby-ivar">@feeds</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span> <span class="ruby-identifier">feed</span>, <span class="ruby-identifier">index</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">list_articles</span>(<span class="ruby-identifier">index</span>) }&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-list_articles'>
+                <a name='method-i-list_articles'></a>
+                <div class='synopsis'>
+                  <span class='name'>list_articles</span>
+                  <span class='arguments'>(id)</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-list_articles-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-list_articles-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 57</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">list_articles</span>(<span class="ruby-identifier">id</span>)&#x000A;  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;=== Channel(#{id.to_s}): #{@feeds[id].channel.title} ===&quot;</span>&#x000A;  <span class="ruby-ivar">@feeds</span>[<span class="ruby-identifier">id</span>].<span class="ruby-identifier">items</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;( #{item.link.to_s} )&quot;</span> }&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-refresh'>
+                <a name='method-i-refresh'></a>
+                <div class='synopsis'>
+                  <span class='name'>refresh</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-refresh-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-refresh-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 31</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">refresh</span>&#x000A;  <span class="ruby-ivar">@feeds</span> = []&#x000A;  <span class="ruby-identifier">read_feeds</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <h2>Protected Instance methods</h2>
+              <div class='method protected-instance' id='method-method-i-read_feeds'>
+                <a name='method-i-read_feeds'></a>
+                <div class='synopsis'>
+                  <span class='name'>read_feeds</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-read_feeds-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-read_feeds-source'><span class="ruby-comment"># File lib/rss-aggregator.rb, line 16</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_feeds</span>&#x000A;  <span class="ruby-ivar">@feed_urls</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">url</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@feeds</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">SimpleRSS</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">open_and_read</span>(<span class="ruby-identifier">url</span>))) }&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

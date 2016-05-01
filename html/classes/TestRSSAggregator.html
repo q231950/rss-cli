@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>TestRSSAggregator</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>class</span>
+          TestRSSAggregator
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../files/tests/test_rss-aggregator_rb.html">tests/test_rss-aggregator.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Superclass:
+          <strong>Test::Unit::TestCase</strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'></div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>Public Instance</h3>
+            <ol>
+              <li><a target="docwin" href="#method-i-result">result</a></li>
+              <li><a target="docwin" href="#method-i-setup">setup</a></li>
+              <li><a target="docwin" href="#method-i-test_add_feed">test_add_feed</a></li>
+              <li><a target="docwin" href="#method-i-test_ignores_adding_duplicate_urls">test_ignores_adding_duplicate_urls</a></li>
+              <li><a target="docwin" href="#method-i-test_number_of_feeds">test_number_of_feeds</a></li>
+              <li><a target="docwin" href="#method-i-test_refreshes_after_adding_url">test_refreshes_after_adding_url</a></li>
+              <li><a target="docwin" href="#method-i-test_removes_duplicates_when_initializing">test_removes_duplicates_when_initializing</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+          </div>
+          <div id='section'>
+            <div id='methods'>
+              <h2>Public Instance methods</h2>
+              <div class='method public-instance' id='method-method-i-result'>
+                <a name='method-i-result'></a>
+                <div class='synopsis'>
+                  <span class='name'>result</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-result-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-result-source'><span class="ruby-comment"># File tests/test_rss-aggregator.rb, line 41</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">result</span>&#x000A;  <span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;tests/resources/test_rss_data.rss&#39;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span> }&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-setup'>
+                <a name='method-i-setup'></a>
+                <div class='synopsis'>
+                  <span class='name'>setup</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-setup-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-setup-source'><span class="ruby-comment"># File tests/test_rss-aggregator.rb, line 7</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup</span>&#x000A;  <span class="ruby-identifier">args</span> = []&#x000A;  <span class="ruby-ivar">@aggregator</span> = <span class="ruby-constant">RSSAggregator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-identifier">partialAggregator</span> = <span class="ruby-identifier">flexmock</span>(<span class="ruby-ivar">@aggregator</span>)&#x000A;  <span class="ruby-identifier">partialAggregator</span>.<span class="ruby-identifier">should_receive</span>(<span class="ruby-string">&#39;open_and_read&#39;</span>).<span class="ruby-identifier">and_return</span>(<span class="ruby-identifier">result</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-test_add_feed'>
+                <a name='method-i-test_add_feed'></a>
+                <div class='synopsis'>
+                  <span class='name'>test_add_feed</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-test_add_feed-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-test_add_feed-source'><span class="ruby-comment"># File tests/test_rss-aggregator.rb, line 18</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_add_feed</span>&#x000A;  <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">add_url</span>(<span class="ruby-string">&quot;http://www.tagesschau.de/xml/rss2&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-test_ignores_adding_duplicate_urls'>
+                <a name='method-i-test_ignores_adding_duplicate_urls'></a>
+                <div class='synopsis'>
+                  <span class='name'>test_ignores_adding_duplicate_urls</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-test_ignores_adding_duplicate_urls-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-test_ignores_adding_duplicate_urls-source'><span class="ruby-comment"># File tests/test_rss-aggregator.rb, line 35</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_ignores_adding_duplicate_urls</span>()&#x000A;  <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">add_url</span>(<span class="ruby-string">&quot;http://www.tagesschau.de/xml/rss2&quot;</span>)&#x000A;  <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">add_url</span>(<span class="ruby-string">&quot;http://www.tagesschau.de/xml/rss2&quot;</span>)&#x000A;  <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value">1</span>, <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">feed_count</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-test_number_of_feeds'>
+                <a name='method-i-test_number_of_feeds'></a>
+                <div class='synopsis'>
+                  <span class='name'>test_number_of_feeds</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-test_number_of_feeds-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-test_number_of_feeds-source'><span class="ruby-comment"># File tests/test_rss-aggregator.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_number_of_feeds</span>&#x000A;  <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value">0</span>, <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">feed_count</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-test_refreshes_after_adding_url'>
+                <a name='method-i-test_refreshes_after_adding_url'></a>
+                <div class='synopsis'>
+                  <span class='name'>test_refreshes_after_adding_url</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-test_refreshes_after_adding_url-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-test_refreshes_after_adding_url-source'><span class="ruby-comment"># File tests/test_rss-aggregator.rb, line 22</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_refreshes_after_adding_url</span>&#x000A;  <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">add_url</span>(<span class="ruby-string">&quot;http://www.tagesschau.de/xml/rss2&quot;</span>)&#x000A;  <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value">1</span>, <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">feed_count</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-test_removes_duplicates_when_initializing'>
+                <a name='method-i-test_removes_duplicates_when_initializing'></a>
+                <div class='synopsis'>
+                  <span class='name'>test_removes_duplicates_when_initializing</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-test_removes_duplicates_when_initializing-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-test_removes_duplicates_when_initializing-source'><span class="ruby-comment"># File tests/test_rss-aggregator.rb, line 27</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_removes_duplicates_when_initializing</span>&#x000A;  <span class="ruby-identifier">args</span> = [<span class="ruby-string">&quot;http://www.tagesschau.de/xml/rss2&quot;</span>, <span class="ruby-string">&quot;http://www.tagesschau.de/xml/rss2&quot;</span>]&#x000A;  <span class="ruby-ivar">@aggregator</span> = <span class="ruby-constant">RSSAggregator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-identifier">partialAggregator</span> = <span class="ruby-identifier">flexmock</span>(<span class="ruby-ivar">@aggregator</span>)&#x000A;  <span class="ruby-identifier">partialAggregator</span>.<span class="ruby-identifier">should_receive</span>(<span class="ruby-string">&#39;open_and_read&#39;</span>).<span class="ruby-identifier">and_return</span>(<span class="ruby-identifier">result</span>)&#x000A;  <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value">1</span>, <span class="ruby-ivar">@aggregator</span>.<span class="ruby-identifier">feed_count</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
