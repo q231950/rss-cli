@@ -21,8 +21,9 @@ class Reader
     end
 
     if @help.nil? && @read.nil?
-      show_basic_usage_hint 
+      show_basic_usage_hint
     end
+
     puts "Bye bye."
   end
 
@@ -31,11 +32,11 @@ class Reader
     @cli.say("Your RSS feeds:")
     @cli.choose do |menu|
       menu.prompt = "Choose a feed or quit by either choosing '" + (@configuration.feeds.length + 1).to_s + "' or entering the letter 'q'."
-      @configuration.feeds.each do |feed| 
+      @configuration.feeds.each do |feed|
         nameSymbol = feed['name'].to_sym
         menu.choices(nameSymbol) {
           handle_name_url(feed['name'], feed['url'])
-        } 
+        }
       end
       menu.choice(:'quit (q)', :q) {
       }
@@ -43,6 +44,7 @@ class Reader
   end
 
   private
+
   def show_basic_usage_hint
     file = File.open("resources/basic_usage_hint.txt")
     @cli.say(file.read)
@@ -55,16 +57,19 @@ class Reader
   end
 
   def write_welcome_message
-    file = File.open('resources/welcome_message.txt') 
+    file = File.open('resources/welcome_message.txt')
     @cli.say(file.read)
   end
 
   def parse_argv_if_available(args)
-    unless args.nil? 
+    unless args.nil?
       parse_args(args)
     end
   end
 
+# Looks for "read" and "help" as arguments
+# * sets @help to true if help was found
+# * sets @read to true if true was found
   def parse_args(args)
       args.each do |k, v|
         if k == "read" || k == "help"
@@ -80,12 +85,12 @@ class Reader
   end
 
   def handle_name_url(name, url )
-    @cli.say("Ok, checking out #{ name }...") 
+    @cli.say("Ok, checking out #{ name }...")
     @aggregator.add_url(url)
     show_choices_for_items(@aggregator.feed_for_url(url).items)
   end
 
-  def show_choices_for_items(items) 
+  def show_choices_for_items(items)
     @cli.choose do |menu|
       items.each do |item|
         title = item.title.to_s
@@ -106,4 +111,3 @@ end
 
 kv = ARGV
 Reader.new(kv)
-
