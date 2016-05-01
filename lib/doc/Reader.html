@@ -188,14 +188,14 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">read</span>
   <span class="ruby-ivar">@cli</span>.<span class="ruby-identifier">say</span>(<span class="ruby-string">&quot;Your RSS feeds:&quot;</span>)
   <span class="ruby-ivar">@cli</span>.<span class="ruby-identifier">choose</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&quot;Choose a feed or quit by either choosing &#39;&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-ivar">@configuration</span>.<span class="ruby-identifier">feeds</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&#39; or entering the letter &#39;q&#39;.&quot;</span>
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">prompt</span> = <span class="ruby-string">&quot;Choose a feed or quit by entering the letter &#39;q&#39; or &#39;quit&#39;.&quot;</span>
     <span class="ruby-ivar">@configuration</span>.<span class="ruby-identifier">feeds</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">feed</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">nameSymbol</span> = <span class="ruby-identifier">feed</span>[<span class="ruby-string">&#39;name&#39;</span>].<span class="ruby-identifier">to_sym</span>
       <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choices</span>(<span class="ruby-identifier">nameSymbol</span>) {
         <span class="ruby-identifier">handle_name_url</span>(<span class="ruby-identifier">feed</span>[<span class="ruby-string">&#39;name&#39;</span>], <span class="ruby-identifier">feed</span>[<span class="ruby-string">&#39;url&#39;</span>])
       }
     <span class="ruby-keyword">end</span>
-    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choice</span>(<span class="ruby-value">:&#39;quit (q)&#39;</span>, <span class="ruby-value">:q</span>) {
+    <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">hidden</span>(<span class="ruby-value">:quit</span>, <span class="ruby-value">:q</span>) {
     }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
